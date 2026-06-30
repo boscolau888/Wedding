@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Bosco & Carrie 婚禮</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Serif+TC:wght@300;400;500;600;700&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #F5F0E8;
+  --cream-dark: #EDE6D8;
+  --cream-light: #FAF7F2;
+  --gold: #C9A96E;
+  --gold-light: #E0CDA5;
+  --gold-bright: #D4AF37;
+  --gold-deep: #A68B4B;
+  --sage: #8B9E7E;
+  --sage-light: #A8B89C;
+  --sage-dark: #6B7E5E;
+  --rose: #D4A0A0;
+  --rose-light: #E8C4C4;
+  --blush: #F0E0DC;
+  --text-dark: #3D3027;
+  --text-medium: #5A4D42;
+  --text-light: #8A7E72;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Noto Serif TC', 'Georgia', serif;
+  background: linear-gradient(160deg, #F5F0E8 0%, #EDE4D6 35%, #F0E8DC 65%, #F5F0E8 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 16px;
+  position: relative;
+}
+
+.dark body {
+  background: linear-gradient(160deg, #1C1914 0%, #252018 35%, #201C16 65%, #1C1914 100%);
+}
+
+/* ===== Ambient Background ===== */
+.ambient {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.ambient-circle {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+}
+
+.ambient-circle:nth-child(1) {
+  width: 400px; height: 400px;
+  top: -100px; right: -80px;
+  background: radial-gradient(circle, rgba(201,169,110,0.12), transparent 70%);
+}
+.ambient-circle:nth-child(2) {
+  width: 350px; height: 350px;
+  bottom: -80px; left: -60px;
+  background: radial-gradient(circle, rgba(212,160,160,0.1), transparent 70%);
+}
+.ambient-circle:nth-child(3) {
+  width: 300px; height: 300px;
+  top: 40%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(139,158,126,0.08), transparent 70%);
+}
+
+.dark .ambient-circle { opacity: 0.5; }
+
+/* ===== Floating Particles ===== */
+.particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  bottom: -10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--gold), var(--gold-light));
+  animation: particleFloat linear infinite;
+}
+
+@keyframes particleFloat {
+  0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+  8% { opacity: var(--p-op); }
+  85% { opacity: var(--p-op); }
+  100% { transform: translateY(calc(-100vh - 20px)) translateX(var(--p-drift)) scale(0.5); opacity: 0; }
+}
+
+/* ===== Card Scene (scaling wrapper) ===== */
+.card-scene {
+  position: relative;
+  z-index: 1;
+  transition: transform 0.4s ease;
+}
+
+/* ===== Card ===== */
+.card {
+  position: relative;
+  width: 750px;
+  height: 500px;
+  perspective: 2500px;
+  animation: cardEntrance 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+}
+
+@keyframes cardEntrance {
+  from { opacity: 0; transform: scale(0.93) translateY(15px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ===== Inside Content ===== */
+.card-inside {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(61,48,39,0.1), 0 2px 10px rgba(61,48,39,0.05);
+  opacity: 0;
+  transition: opacity 0.6s ease 0.7s;
+}
+
+.card-inside.visible { opacity: 1; }
+
+.dark .card-inside {
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3), 0 2px 10px rgba(0,0,0,0.15);
+}
+
+/* --- Spine line --- */
+.spine {
+  position: absolute;
+  left: 50%;
+  top: 4%;
+  bottom: 4%;
+  width: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom, transparent, rgba(61,48,39,0.06) 20%, rgba(61,48,39,0.08) 50%, rgba(61,48,39,0.06) 80%, transparent);
+  z-index: 5;
+}
+
+/* --- Left Page (Illustration) --- */
+.left-page {
+  width: 50%;
+  height: 100%;
+  background: var(--cream-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  position: relative;
+}
+
+.image-mat {
+  background: #FFFFFF;
+  padding: 10px;
+  box-shadow: 0 2px 12px rgba(61,48,39,0.06), inset 0 0 20px rgba(61,48,39,0.02);
+  border: 1px solid rgba(201,169,110,0.25);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.image-mat img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Gold corner ornaments on image frame */
+.frame-corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+}
+.frame-corner svg { width: 100%; height: 100%; }
+.frame-corner.tl { top: 4px; left: 4px; }
+.frame-corner.tr { top: 4px; right: 4px; transform: scaleX(-1); }
+.frame-corner.bl { bottom: 4px; left: 4px; transform: scaleY(-1); }
+.frame-corner.br { bottom: 4px; right: 4px; transform: scale(-1, -1); }
+
+/* --- Right Page (Text) --- */
+.right-page {
+  width: 50%;
+  height: 100%;
+  background: var(--cream-light);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow: hidden;
+}
+
+/* Watercolor blobs */
+.wc-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(25px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wc-blob.rose-tr {
+  width: 130px; height: 130px;
+  top: -30px; right: -25px;
+  background: radial-gradient(ellipse, rgba(212,160,160,0.28), rgba(232,196,196,0.12), transparent 70%);
+}
+
+.wc-blob.sage-bl {
+  width: 110px; height: 110px;
+  bottom: -25px; left: -20px;
+  background: radial-gradient(ellipse, rgba(139,158,126,0.22), rgba(168,184,156,0.1), transparent 70%);
+}
+
+.wc-blob.rose-bl {
+  width: 90px; height: 90px;
+  bottom: 20px; right: 30px;
+  background: radial-gradient(ellipse, rgba(212,160,160,0.12), transparent 70%);
+}
+
+.wc-blob.sage-tr {
+  width: 80px; height: 80px;
+  top: 30px; left: 20px;
+  background: radial-gradient(ellipse, rgba(139,158,126,0.12), transparent 70%);
+}
+
+/* Rose clusters (SVG) */
+.rose-cluster {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.7;
+}
+
+.rose-cluster.top-right {
+  top: 8px; right: 8px;
+  width: 90px; height: 90px;
+}
+
+.rose-cluster.bottom-left {
+  bottom: 8px; left: 8px;
+  width: 80px; height: 80px;
+  transform: rotate(180deg);
+}
+
+/* Gold geometric frame */
+.gold-frame {
+  position: absolute;
+  top: 18px; right: 18px; bottom: 18px; left: 18px;
+  border: 0.5px solid rgba(201,169,110,0.35);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.gold-frame::after {
+  content: '';
+  position: absolute;
+  top: 5px; right: 5px; bottom: 5px; left: 5px;
+  border: 0.5px solid rgba(201,169,110,0.2);
+}
+
+/* Gold frame corner diamonds */
+.gf-corner {
+  position: absolute;
+  width: 8px; height: 8px;
+  border: 0.5px solid var(--gold);
+  transform: rotate(45deg);
+  background: var(--cream-light);
+  z-index: 2;
+}
+.gf-corner.tl { top: -4px; left: -4px; }
+.gf-corner.tr { top: -4px; right: -4px; }
+.gf-corner.bl { bottom: -4px; left: -4px; }
+.gf-corner.br { bottom: -4px; right: -4px; }
+
+/* Text Content */
+.text-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  color: var(--text-dark);
+  padding: 15px 10px;
+  width: 100%;
+}
+
+.xi-inner {
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: goldShimmer 6s linear infinite;
+  margin-bottom: 10px;
+  line-height: 1;
+}
+
+.invite-text {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-medium);
+  letter-spacing: 0.15em;
+  margin-bottom: 12px;
+}
+
+.divider-svg {
+  display: block;
+  margin: 10px auto;
+  opacity: 0.6;
+}
+
+.names-section {
+  margin: 8px 0;
+}
+
+.names-section p {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-dark);
+  line-height: 1.9;
+  letter-spacing: 0.08em;
+}
+
+.details-section {
+  margin: 8px 0;
+}
+
+.details-section p {
+  font-size: 12.5px;
+  font-weight: 400;
+  color: var(--text-medium);
+  line-height: 1.85;
+  letter-spacing: 0.04em;
+}
+
+.details-section .venue {
+  font-size: 11.5px;
+}
+
+.closing-text {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--gold-deep);
+  letter-spacing: 0.1em;
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* Staggered reveal animations */
+.anim-item {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.card-inside.visible .anim-item {
+  animation: fadeSlideUp 0.6s ease forwards;
+}
+
+.card-inside.visible .anim-item:nth-child(1) { animation-delay: 0.8s; }
+.card-inside.visible .anim-item:nth-child(2) { animation-delay: 1.0s; }
+.card-inside.visible .anim-item:nth-child(3) { animation-delay: 1.15s; }
+.card-inside.visible .anim-item:nth-child(4) { animation-delay: 1.3s; }
+.card-inside.visible .anim-item:nth-child(5) { animation-delay: 1.45s; }
+.card-inside.visible .anim-item:nth-child(6) { animation-delay: 1.6s; }
+.card-inside.visible .anim-item:nth-child(7) { animation-delay: 1.75s; }
+.card-inside.visible .anim-item:nth-child(8) { animation-delay: 1.9s; }
+.card-inside.visible .anim-item:nth-child(9) { animation-delay: 2.05s; }
+
+@keyframes fadeSlideUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Image reveal */
+.left-page .image-mat {
+  opacity: 0;
+  transform: scale(0.96);
+}
+
+.card-inside.visible .left-page .image-mat {
+  animation: imageReveal 0.8s ease 0.6s forwards;
+}
+
+@keyframes imageReveal {
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ===== Cover ===== */
+.card-cover {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  transform: perspective(2500px) rotateY(0deg);
+  transition: transform 1.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+  backface-visibility: hidden;
+  z-index: 10;
+  cursor: pointer;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(61,48,39,0.12), 0 2px 10px rgba(61,48,39,0.06);
+}
+
+.dark .card-cover {
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3), 0 2px 10px rgba(0,0,0,0.15);
+}
+
+.card-cover.opened {
+  transform: perspective(2500px) rotateY(-180deg);
+  pointer-events: none;
+  box-shadow: none;
+}
+
+/* Cover background - linen texture */
+.cover-bg {
+  position: absolute;
+  inset: 0;
+  background-color: #F5F0E8;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(61,48,39,0.008) 3px, rgba(61,48,39,0.008) 4px),
+    repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(61,48,39,0.008) 3px, rgba(61,48,39,0.008) 4px);
+}
+
+.dark .cover-bg {
+  background-color: #2A2520;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,0.008) 3px, rgba(255,255,255,0.008) 4px),
+    repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(255,255,255,0.008) 3px, rgba(255,255,255,0.008) 4px);
+}
+
+/* Gold double border on cover */
+.cover-border-outer {
+  position: absolute;
+  top: 14px; right: 14px; bottom: 14px; left: 14px;
+  border: 1px solid rgba(201,169,110,0.45);
+}
+
+.cover-border-inner {
+  position: absolute;
+  top: 6px; right: 6px; bottom: 6px; left: 6px;
+  border: 0.5px solid rgba(201,169,110,0.3);
+}
+
+.dark .cover-border-outer { border-color: rgba(201,169,110,0.35); }
+.dark .cover-border-inner { border-color: rgba(201,169,110,0.2); }
+
+/* Eucalyptus branches */
+.branch {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.85;
+}
+
+.branch-tl { top: 10px; left: 10px; width: 120px; height: 140px; }
+.branch-tr { top: 10px; right: 10px; width: 120px; height: 140px; }
+.branch-bl { bottom: 10px; left: 10px; width: 120px; height: 140px; }
+.branch-br { bottom: 10px; right: 10px; width: 120px; height: 140px; }
+
+.dark .branch { opacity: 0.7; }
+
+/* Cover center content */
+.cover-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+
+.xi-cover {
+  font-size: 64px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 20%, #B38728 45%, #FBF5B7 70%, #AA771C 100%);
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: goldShimmer 5s linear infinite;
+  margin-bottom: 16px;
+  text-shadow: none;
+}
+
+@keyframes goldShimmer {
+  to { background-position: 250% center; }
+}
+
+.cover-names {
+  font-family: 'Pinyon Script', 'Cormorant Garamond', cursive;
+  font-size: 32px;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.dark .cover-names { color: var(--gold-light); }
+
+.cover-date {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--text-light);
+  letter-spacing: 0.25em;
+  margin-bottom: 0;
+}
+
+.dark .cover-date { color: rgba(224,205,165,0.6); }
+
+/* Decorative line under names */
+.cover-line {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 12px 0 14px;
+  opacity: 0.5;
+}
+
+/* Tap hint */
+.tap-hint {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  text-align: center;
+}
+
+.tap-hint span {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--text-light);
+  letter-spacing: 0.3em;
+  animation: hintPulse 2.5s ease-in-out infinite;
+}
+
+.dark .tap-hint span { color: rgba(224,205,165,0.5); }
+
+@keyframes hintPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.tap-hint svg {
+  display: block;
+  margin: 6px auto 0;
+  animation: hintPulse 2.5s ease-in-out infinite;
+}
+
+/* ===== Close Button ===== */
+.close-btn {
+  position: absolute;
+  top: -42px;
+  right: -8px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(201,169,110,0.35);
+  border-radius: 50%;
+  background: rgba(245,240,232,0.95);
+  color: var(--gold);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease, background 0.3s;
+  z-index: 20;
+  outline: none;
+  font-size: 0;
+}
+
+.close-btn:hover {
+  background: rgba(201,169,110,0.15);
+}
+
+.close-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.dark .close-btn {
+  background: rgba(42,37,32,0.95);
+  border-color: rgba(201,169,110,0.3);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 800px) {
+  .card {
+    width: 90vw;
+    height: 60vw;
+  }
+}
+
+@media (max-width: 600px) {
+  body { padding: 12px; align-items: flex-start; padding-top: 50px; }
+
+  .card {
+    width: 92vw;
+    height: auto;
+    aspect-ratio: 7 / 10;
+  }
+
+  .card-inside { flex-direction: column; }
+
+  .left-page {
+    width: 100%;
+    height: 48%;
+    padding: 16px;
+  }
+
+  .right-page {
+    width: 100%;
+    height: 52%;
+    padding: 14px;
+  }
+
+  .spine {
+    left: 4%;
+    right: 4%;
+    top: 48%;
+    width: auto;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(61,48,39,0.06) 20%, rgba(61,48,39,0.08) 50%, rgba(61,48,39,0.06) 80%, transparent);
+  }
+
+  .xi-inner { font-size: 28px; margin-bottom: 6px; }
+  .invite-text { font-size: 12px; margin-bottom: 8px; letter-spacing: 0.1em; }
+  .names-section p { font-size: 12.5px; line-height: 1.7; }
+  .details-section p { font-size: 10.5px; line-height: 1.7; }
+  .details-section .venue { font-size: 10px; }
+  .closing-text { font-size: 11px; margin-top: 5px; }
+  .divider-svg { margin: 6px auto; transform: scale(0.8); }
+
+  .gold-frame { top: 12px; right: 12px; bottom: 12px; left: 12px; }
+  .wc-blob.rose-tr { width: 80px; height: 80px; }
+  .wc-blob.sage-bl { width: 70px; height: 70px; }
+  .rose-cluster.top-right { width: 60px; height: 60px; }
+  .rose-cluster.bottom-left { width: 55px; height: 55px; }
+
+  .xi-cover { font-size: 48px; margin-bottom: 12px; }
+  .cover-names { font-size: 24px; }
+  .cover-date { font-size: 13px; }
+  .branch { opacity: 0.7; }
+  .branch-tl, .branch-tr, .branch-bl, .branch-br { width: 85px; height: 100px; }
+
+  .close-btn { top: -36px; right: 0; }
+}
+
+@media (max-width: 380px) {
+  .xi-inner { font-size: 24px; }
+  .invite-text { font-size: 11px; }
+  .names-section p { font-size: 11.5px; }
+  .details-section p { font-size: 9.5px; }
+  .details-section .venue { font-size: 9px; }
+  .closing-text { font-size: 10px; }
+  .divider-svg { transform: scale(0.65); margin: 4px auto; }
+  .text-content { padding: 8px 4px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Ambient background -->
+<div class="ambient">
+  <div class="ambient-circle"></div>
+  <div class="ambient-circle"></div>
+  <div class="ambient-circle"></div>
+</div>
+
+<!-- Floating particles -->
+<div class="particles" id="particles"></div>
+
+<!-- Card Scene -->
+<div class="card-scene" id="cardScene">
+  <div class="card" id="card">
+
+    <!-- ===== Inside Content ===== -->
+    <div class="card-inside" id="cardInside">
+      <!-- Left Page: Illustration -->
+      <div class="left-page">
+        <div class="image-mat">
+          <div class="frame-corner tl"><svg viewBox="0 0 16 16" fill="none"><path d="M0 16 L0 4 C0 1.8 1.8 0 4 0 L16 0" stroke="#C9A96E" stroke-width="0.8" opacity="0.6"/></svg></div>
+          <div class="frame-corner tr"><svg viewBox="0 0 16 16" fill="none"><path d="M0 16 L0 4 C0 1.8 1.8 0 4 0 L16 0" stroke="#C9A96E" stroke-width="0.8" opacity="0.6"/></svg></div>
+          <div class="frame-corner bl"><svg viewBox="0 0 16 16" fill="none"><path d="M0 16 L0 4 C0 1.8 1.8 0 4 0 L16 0" stroke="#C9A96E" stroke-width="0.8" opacity="0.6"/></svg></div>
+          <div class="frame-corner br"><svg viewBox="0 0 16 16" fill="none"><path d="M0 16 L0 4 C0 1.8 1.8 0 4 0 L16 0" stroke="#C9A96E" stroke-width="0.8" opacity="0.6"/></svg></div>
+          <img src="https://pfst.cf2.poecdn.net/base/image/bfb7221f77615ce69a3841cc4b789968809212a547a9203d7c1b90a7cbe1bf8c?w=895&h=1200" alt="Bosco & Carrie" >
+        </div>
+      </div>
+
+      <!-- Right Page: Text -->
+      <div class="right-page">
+        <!-- Watercolor blobs -->
+        <div class="wc-blob rose-tr"></div>
+        <div class="wc-blob sage-bl"></div>
+        <div class="wc-blob rose-bl"></div>
+        <div class="wc-blob sage-tr"></div>
+
+        <!-- Rose cluster SVGs -->
+        <svg class="rose-cluster top-right" viewBox="0 0 100 100" fill="none">
+          <ellipse cx="72" cy="72" rx="14" ry="5" fill="#8B9E7E" opacity="0.35" transform="rotate(35 72 72)"/>
+          <ellipse cx="82" cy="82" rx="11" ry="4" fill="#95A889" opacity="0.3" transform="rotate(55 82 82)"/>
+          <ellipse cx="58" cy="78" rx="12" ry="4.5" fill="#A3B18A" opacity="0.25" transform="rotate(15 58 78)"/>
+          <circle cx="60" cy="48" r="16" fill="#E8C4C4" opacity="0.25"/>
+          <circle cx="50" cy="42" r="12" fill="#D4A0A0" opacity="0.2"/>
+          <circle cx="72" cy="44" r="11" fill="#E8C4C4" opacity="0.2"/>
+          <circle cx="58" cy="56" r="9" fill="#D4A0A0" opacity="0.18"/>
+          <circle cx="65" cy="46" r="5" fill="#C48888" opacity="0.15"/>
+          <circle cx="84" cy="58" r="5" fill="#E8C4C4" opacity="0.22"/>
+          <circle cx="42" cy="62" r="4" fill="#D4A0A0" opacity="0.18"/>
+        </svg>
+
+        <svg class="rose-cluster bottom-left" viewBox="0 0 100 100" fill="none">
+          <ellipse cx="72" cy="72" rx="13" ry="5" fill="#8B9E7E" opacity="0.3" transform="rotate(35 72 72)"/>
+          <ellipse cx="80" cy="80" rx="10" ry="4" fill="#95A889" opacity="0.25" transform="rotate(55 80 80)"/>
+          <circle cx="55" cy="48" r="14" fill="#E8C4C4" opacity="0.22"/>
+          <circle cx="65" cy="55" r="11" fill="#D4A0A0" opacity="0.18"/>
+          <circle cx="48" cy="56" r="9" fill="#E8C4C4" opacity="0.16"/>
+          <circle cx="58" cy="46" r="6" fill="#D4A0A0" opacity="0.14"/>
+        </svg>
+
+        <!-- Gold frame -->
+        <div class="gold-frame">
+          <div class="gf-corner tl"></div>
+          <div class="gf-corner tr"></div>
+          <div class="gf-corner bl"></div>
+          <div class="gf-corner br"></div>
+        </div>
+
+        <!-- Text -->
+        <div class="text-content">
+          <div class="anim-item xi-inner">囍</div>
+
+          <p class="anim-item invite-text">誠邀光臨我們的婚禮</p>
+
+          <svg class="anim-item divider-svg" viewBox="0 0 100 12" width="80" height="10">
+            <line x1="5" y1="6" x2="40" y2="6" stroke="#C9A96E" stroke-width="0.5" opacity="0.5"/>
+            <rect x="46" y="2" width="8" height="8" fill="none" stroke="#C9A96E" stroke-width="0.5" opacity="0.55" transform="rotate(45 50 6)"/>
+            <line x1="60" y1="6" x2="95" y2="6" stroke="#C9A96E" stroke-width="0.5" opacity="0.5"/>
+          </svg>
+
+          <div class="anim-item names-section">
+            <p>新郎：劉焯峰&emsp;新娘：郭佩盈</p>
+          </div>
+
+          <svg class="anim-item divider-svg" viewBox="0 0 100 12" width="80" height="10">
+            <line x1="5" y1="6" x2="40" y2="6" stroke="#C9A96E" stroke-width="0.5" opacity="0.5"/>
+            <rect x="46" y="2" width="8" height="8" fill="none" stroke="#C9A96E" stroke-width="0.5" opacity="0.55" transform="rotate(45 50 6)"/>
+            <line x1="60" y1="6" x2="95" y2="6" stroke="#C9A96E" stroke-width="0.5" opacity="0.5"/>
+          </svg>
+
+          <div class="anim-item details-section">
+            <p>謹定於 2026 年 8 月 2 日（星期日）</p>
+            <p>舉行結婚典禮</p>
+            <p style="margin-top:4px">設宴於：萬麗海景酒店 8 樓 OASIS ROOM</p>
+            <p>時間：早上 11 時恭候 ｜ 正午 12 時入席</p>
+          </div>
+
+          <svg class="anim-item divider-svg" viewBox="0 0 100 12" width="60" height="8">
+            <line x1="5" y1="6" x2="40" y2="6" stroke="#C9A96E" stroke-width="0.4" opacity="0.4"/>
+            <ellipse cx="50" cy="6" rx="3" ry="3" fill="none" stroke="#C9A96E" stroke-width="0.4" opacity="0.45"/>
+            <line x1="60" y1="6" x2="95" y2="6" stroke="#C9A96E" stroke-width="0.4" opacity="0.4"/>
+          </svg>
+
+          <p class="anim-item closing-text">期待當天與您見證這份喜悅！</p>
+        </div>
+      </div>
+
+      <!-- Spine -->
+      <div class="spine"></div>
+    </div>
+
+    <!-- ===== Cover ===== -->
+    <div class="card-cover" id="cardCover" role="button" tabindex="0" aria-label="輕觸打開婚禮邀請卡">
+      <!-- Linen background -->
+      <div class="cover-bg"></div>
+
+      <!-- Gold borders -->
+      <div class="cover-border-outer">
+        <div class="cover-border-inner"></div>
+      </div>
+
+      <!-- Eucalyptus branch - Top Left -->
+      <svg class="branch branch-tl" viewBox="0 0 120 140" fill="none">
+        <path d="M110 140 C100 115 95 95 85 75 C78 60 72 42 65 25 C62 17 60 8 58 0" stroke="#7A8E6E" stroke-width="0.9" stroke-linecap="round"/>
+        <ellipse cx="90" cy="122" rx="13" ry="5" fill="#8B9E7E" opacity="0.65" transform="rotate(-50 90 122)"/>
+        <ellipse cx="105" cy="112" rx="11" ry="4.5" fill="#95A889" opacity="0.55" transform="rotate(40 105 112)"/>
+        <ellipse cx="82" cy="98" rx="12" ry="4.5" fill="#8B9E7E" opacity="0.6" transform="rotate(-42 82 98)"/>
+        <ellipse cx="97" cy="85" rx="10" ry="4" fill="#A3B18A" opacity="0.5" transform="rotate(35 97 85)"/>
+        <ellipse cx="76" cy="70" rx="10" ry="3.8" fill="#95A889" opacity="0.5" transform="rotate(-35 76 70)"/>
+        <ellipse cx="88" cy="58" rx="9" ry="3.5" fill="#8B9E7E" opacity="0.45" transform="rotate(30 88 58)"/>
+        <ellipse cx="70" cy="44" rx="8" ry="3" fill="#A3B18A" opacity="0.4" transform="rotate(-28 70 44)"/>
+        <ellipse cx="80" cy="32" rx="7" ry="2.8" fill="#95A889" opacity="0.35" transform="rotate(22 80 32)"/>
+        <ellipse cx="65" cy="18" rx="6" ry="2.5" fill="#8B9E7E" opacity="0.3" transform="rotate(-18 65 18)"/>
+      </svg>
+
+      <!-- Eucalyptus branch - Top Right -->
+      <svg class="branch branch-tr" viewBox="0 0 120 140" fill="none">
+        <path d="M10 140 C20 115 25 95 35 75 C42 60 48 42 55 25 C58 17 60 8 62 0" stroke="#7A8E6E" stroke-width="0.9" stroke-linecap="round"/>
+        <ellipse cx="30" cy="122" rx="13" ry="5" fill="#95A889" opacity="0.6" transform="rotate(50 30 122)"/>
+        <ellipse cx="15" cy="112" rx="11" ry="4.5" fill="#8B9E7E" opacity="0.5" transform="rotate(-40 15 112)"/>
+        <ellipse cx="38" cy="98" rx="12" ry="4.5" fill="#A3B18A" opacity="0.55" transform="rotate(42 38 98)"/>
+        <ellipse cx="23" cy="85" rx="10" ry="4" fill="#8B9E7E" opacity="0.5" transform="rotate(-35 23 85)"/>
+        <ellipse cx="44" cy="70" rx="10" ry="3.8" fill="#95A889" opacity="0.48" transform="rotate(35 44 70)"/>
+        <ellipse cx="32" cy="58" rx="9" ry="3.5" fill="#A3B18A" opacity="0.42" transform="rotate(-30 32 58)"/>
+        <ellipse cx="50" cy="44" rx="8" ry="3" fill="#8B9E7E" opacity="0.38" transform="rotate(28 50 44)"/>
+        <ellipse cx="40" cy="32" rx="7" ry="2.8" fill="#95A889" opacity="0.32" transform="rotate(-22 40 32)"/>
+        <ellipse cx="55" cy="18" rx="6" ry="2.5" fill="#A3B18A" opacity="0.28" transform="rotate(18 55 18)"/>
+      </svg>
+
+      <!-- Eucalyptus branch - Bottom Left -->
+      <svg class="branch branch-bl" viewBox="0 0 120 140" fill="none">
+        <path d="M110 0 C100 25 95 45 85 65 C78 80 72 98 65 115 C62 123 60 132 58 140" stroke="#7A8E6E" stroke-width="0.9" stroke-linecap="round"/>
+        <ellipse cx="90" cy="18" rx="13" ry="5" fill="#8B9E7E" opacity="0.6" transform="rotate(50 90 18)"/>
+        <ellipse cx="105" cy="28" rx="11" ry="4.5" fill="#A3B18A" opacity="0.5" transform="rotate(-40 105 28)"/>
+        <ellipse cx="82" cy="42" rx="12" ry="4.5" fill="#95A889" opacity="0.55" transform="rotate(42 82 42)"/>
+        <ellipse cx="97" cy="55" rx="10" ry="4" fill="#8B9E7E" opacity="0.48" transform="rotate(-35 97 55)"/>
+        <ellipse cx="76" cy="70" rx="10" ry="3.8" fill="#A3B18A" opacity="0.45" transform="rotate(35 76 70)"/>
+        <ellipse cx="88" cy="82" rx="9" ry="3.5" fill="#95A889" opacity="0.4" transform="rotate(-30 88 82)"/>
+        <ellipse cx="70" cy="96" rx="8" ry="3" fill="#8B9E7E" opacity="0.38" transform="rotate(28 70 96)"/>
+        <ellipse cx="80" cy="108" rx="7" ry="2.8" fill="#A3B18A" opacity="0.33" transform="rotate(-22 80 108)"/>
+        <ellipse cx="65" cy="122" rx="6" ry="2.5" fill="#95A889" opacity="0.28" transform="rotate(18 65 122)"/>
+      </svg>
+
+      <!-- Eucalyptus branch - Bottom Right -->
+      <svg class="branch branch-br" viewBox="0 0 120 140" fill="none">
+        <path d="M10 0 C20 25 25 45 35 65 C42 80 48 98 55 115 C58 123 60 132 62 140" stroke="#7A8E6E" stroke-width="0.9" stroke-linecap="round"/>
+        <ellipse cx="30" cy="18" rx="13" ry="5" fill="#95A889" opacity="0.55" transform="rotate(-50 30 18)"/>
+        <ellipse cx="15" cy="28" rx="11" ry="4.5" fill="#8B9E7E" opacity="0.48" transform="rotate(40 15 28)"/>
+        <ellipse cx="38" cy="42" rx="12" ry="4.5" fill="#A3B18A" opacity="0.52" transform="rotate(-42 38 42)"/>
+        <ellipse cx="23" cy="55" rx="10" ry="4" fill="#95A889" opacity="0.45" transform="rotate(35 23 55)"/>
+        <ellipse cx="44" cy="70" rx="10" ry="3.8" fill="#8B9E7E" opacity="0.42" transform="rotate(-35 44 70)"/>
+        <ellipse cx="32" cy="82" rx="9" ry="3.5" fill="#A3B18A" opacity="0.38" transform="rotate(30 32 82)"/>
+        <ellipse cx="50" cy="96" rx="8" ry="3" fill="#95A889" opacity="0.35" transform="rotate(-28 50 96)"/>
+        <ellipse cx="40" cy="108" rx="7" ry="2.8" fill="#8B9E7E" opacity="0.3" transform="rotate(22 40 108)"/>
+        <ellipse cx="55" cy="122" rx="6" ry="2.5" fill="#A3B18A" opacity="0.25" transform="rotate(-18 55 122)"/>
+      </svg>
+
+      <!-- Center content -->
+      <div class="cover-center">
+        <div class="xi-cover">囍</div>
+        <div class="cover-names">Bosco &amp; Carrie</div>
+        <div class="cover-line"></div>
+        <div class="cover-date">2 0 2 6 · 8 · 2</div>
+      </div>
+
+      <!-- Tap hint -->
+      <div class="tap-hint">
+        <span>輕 觸 打 開</span>
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#8A7E72" stroke-width="1" opacity="0.5">
+          <path d="M12 5v14M5 12l7 7 7-7"/>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Close button -->
+  <button class="close-btn" id="closeBtn" aria-label="關閉">
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+      <path d="M18 6L6 18M6 6l12 12"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+(function() {
+  // Dark mode detection
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.documentElement.classList.add('dark');
+  }
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+    if (e.matches) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  });
+
+  var cardCover = document.getElementById('cardCover');
+  var cardInside = document.getElementById('cardInside');
+  var closeBtn = document.getElementById('closeBtn');
+  var isOpen = false;
+
+  // Open card
+  function openCard() {
+    if (isOpen) return;
+    isOpen = true;
+    cardCover.classList.add('opened');
+
+    setTimeout(function() {
+      cardInside.classList.add('visible');
+    }, 300);
+
+    setTimeout(function() {
+      closeBtn.classList.add('visible');
+    }, 2200);
+  }
+
+  // Close card
+  function closeCard() {
+    if (!isOpen) return;
+    isOpen = false;
+    closeBtn.classList.remove('visible');
+    cardInside.classList.remove('visible');
+
+    // Reset stagger animations by removing and re-adding items
+    var animItems = document.querySelectorAll('.anim-item');
+    animItems.forEach(function(item) {
+      item.style.animation = 'none';
+      item.offsetHeight; // force reflow
+      item.style.animation = '';
+    });
+
+    var imageMat = document.querySelector('.left-page .image-mat');
+    if (imageMat) {
+      imageMat.style.animation = 'none';
+      imageMat.offsetHeight;
+      imageMat.style.animation = '';
+    }
+
+    setTimeout(function() {
+      cardCover.classList.remove('opened');
+    }, 400);
+  }
+
+  // Event listeners
+  cardCover.addEventListener('click', openCard);
+  cardCover.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openCard();
+    }
+  });
+
+  closeBtn.addEventListener('click', closeCard);
+
+  // Create floating particles
+  function createParticles() {
+    var container = document.getElementById('particles');
+    var count = window.innerWidth < 600 ? 10 : 18;
+
+    for (var i = 0; i < count; i++) {
+      var p = document.createElement('div');
+      p.className = 'particle';
+      var size = 2 + Math.random() * 3;
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      p.style.left = (Math.random() * 100) + '%';
+      p.style.setProperty('--p-op', (0.15 + Math.random() * 0.2).toString());
+      p.style.setProperty('--p-drift', (Math.random() * 60 - 30) + 'px');
+      p.style.animationDuration = (8 + Math.random() * 12) + 's';
+      p.style.animationDelay = (Math.random() * 15) + 's';
+      container.appendChild(p);
+    }
+  }
+
+  // Responsive scaling
+  function adjustScale() {
+    var scene = document.getElementById('cardScene');
+    var card = document.getElementById('card');
+    var cardStyle = window.getComputedStyle(card);
+    var cardW = parseFloat(cardStyle.width);
+    var cardH = parseFloat(cardStyle.height);
+
+    var maxW = window.innerWidth - 32;
+    var maxH = window.innerHeight - 80;
+
+    var scale = Math.min(maxW / cardW, maxH / cardH, 1);
+
+    if (scale < 1) {
+      scene.style.transform = 'scale(' + scale + ')';
+    } else {
+      scene.style.transform = 'scale(1)';
+    }
+  }
+
+  // Init
+  createParticles();
+
+  // Delay scale adjustment to allow CSS to compute
+  setTimeout(adjustScale, 50);
+  window.addEventListener('resize', adjustScale);
+})();
+</script>
+</body>
+</html>
